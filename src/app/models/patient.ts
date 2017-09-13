@@ -7,10 +7,17 @@ export class Patient {
     public clinics: Clinic[];
     public therapists: Therapist[];
 
-    public addClinic(clinic: Clinic) {
-      if (this.clinics.indexOf(clinic) === -1) {
-        this.clinics.push(clinic);
-        clinic.addPatient(this);
-      }
+    public addClinic(clinic: Clinic) : void {
+        if (this.clinics.indexOf(clinic) === -1) {
+            this.clinics.push(clinic);
+            clinic.addPatient(this);
+        }
+    }
+
+    public addTherapist(therapist: Therapist) : void {
+        if (this.therapists.indexOf(therapist) === -1) {
+            this.therapists.push(therapist);
+            therapist.addPatient(this);
+        }
     }
 }
