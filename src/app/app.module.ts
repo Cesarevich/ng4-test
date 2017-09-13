@@ -7,6 +7,11 @@ import { AppComponent }  from './components/app/app.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { HomeComponent } from './components/home/home.component';
 
+import { ApiClinicCrudService } from './services/api-clinic-crud.service';
+import { Utils } from './services/utils';
+import { ClinicFactory } from './factories/models/clinic.factory';
+import { ConfirmDeactivateGuard } from './guards/confirm-deactivate.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +23,11 @@ import { HomeComponent } from './components/home/home.component';
     routing
   ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    ApiClinicCrudService,
+    ClinicFactory,
+    Utils,
+    ConfirmDeactivateGuard
   ],
   bootstrap: [AppComponent]
 })
