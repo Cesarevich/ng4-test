@@ -8,6 +8,8 @@ import { CreateClinicComponent }  from './components/create-clinic/create-clinic
 import { ClinicFormComponent }  from './components/clinic-form/clinic-form.component';
 import { ClinicListComponent }  from './components/clinic-list/clinic-list.component';
 import { ClinicItemComponent }  from './components/clinic-item/clinic-item.component';
+import { ClinicProfileComponent }  from './components/clinic-profile/clinic-profile.component';
+import { ClinicResolver } from './resolvers/clinic.resolver';
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import { ClinicItemComponent }  from './components/clinic-item/clinic-item.compo
     CreateClinicComponent,
     ClinicFormComponent,
     ClinicListComponent,
-    ClinicItemComponent
-  ]
+    ClinicItemComponent,
+    ClinicProfileComponent
+  ],
+  providers:    [ ClinicResolver ],
 })
 export class ClinicModule { }

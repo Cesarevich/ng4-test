@@ -50,4 +50,23 @@ export class ApiClinicCrudService implements ApiClinicCrudInterface {
       observer.next(true);
     });
   }
+
+  get(id: string) : Observable<Clinic> {
+    return new Observable((observer: Observer<any>) => {
+      let clinics = JSON.parse(localStorage.getItem(this.storageKey));
+      let clinic = null;
+      // Use every to stop iterating as soon as we find item.
+      clinics.every(function (item: Clinic) {
+        if (item.id === id) {
+          clinic = item;
+          return false;
+        }
+        return true;
+      });
+      if (clinic === null) {
+        observer.error({status: 404});
+      }
+      observer.next(clinic);
+    });
+  }
 }
