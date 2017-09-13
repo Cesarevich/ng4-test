@@ -6,6 +6,8 @@ import { routing } from './clinic.routing';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CreateClinicComponent }  from './components/create-clinic/create-clinic.component';
 import { ClinicFormComponent }  from './components/clinic-form/clinic-form.component';
+import { ClinicListComponent }  from './components/clinic-list/clinic-list.component';
+import { ClinicItemComponent }  from './components/clinic-item/clinic-item.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { ClinicFormComponent }  from './components/clinic-form/clinic-form.compo
   declarations: [
     DashboardComponent,
     CreateClinicComponent,
-    ClinicFormComponent
+    ClinicFormComponent,
+    ClinicListComponent,
+    ClinicItemComponent
   ]
 })
 export class ClinicModule { }

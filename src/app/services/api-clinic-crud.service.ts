@@ -9,26 +9,45 @@ import { ClinicRequestInterface as ClinicRequest } from './../interfaces/request
 @Injectable()
 export class ApiClinicCrudService implements ApiClinicCrudInterface {
 
-    protected readonly storageKey: string = 'clinics';
+  protected readonly storageKey: string = 'clinics';
 
-    constructor(
-        private clinicFactory: ClinicFactory
-    ) {
-    }
+  constructor(
+      private clinicFactory: ClinicFactory
+  ) {
+  }
 
-    create(parameters: ClinicRequest) : Observable<Clinic> {
-        return new Observable((observer: Observer<any>) => {
-            let clinic = this.clinicFactory.createClinic();
-            clinic.address = parameters.address;
-            clinic.title = parameters.title;
-            let clinics = JSON.parse(localStorage.getItem(this.storageKey));
-            if (clinics === null) {
-                localStorage.setItem(this.storageKey, JSON.stringify([clinic]));
-            } else {
-                clinics.push(clinic);
-                localStorage.setItem(this.storageKey, JSON.stringify(clinics));
-            }
-            observer.next(clinic)
-        });
-    }
+  create(parameters: ClinicRequest) : Observable<Clinic> {
+      return new Observable((observer: Observer<any>) => {
+          let clinic = this.clinicFactory.createClinic();
+          clinic.address = parameters.address;
+          clinic.title = parameters.title;
+          let clinics = JSON.parse(localStorage.getItem(this.storageKey));
+          if (clinics === null) {
+              localStorage.setItem(this.storageKey, JSON.stringify([clinic]));
+          } else {
+              clinics.push(clinic);
+              localStorage.setItem(this.storageKey, JSON.stringify(clinics));
+          }
+          observer.next(clinic)
+      });
+  }
+
+  //TODO: here is we may want to pass pagination parameters
+  list(): Observable<Clinic[]> {
+    return new Observable((observer: Observer<any>) => {
+      let clinics = JSON.parse(localStorage.getItem(this.storageKey));
+      observer.next(clinics || []);
+    });
+  }
+
+  remove(clinic: Clinic): Observable<boolean> {
+    return new Observable((observer: Observer<any>) => {
+      let clinics = JSON.parse(localStorage.getItem(this.storageKey));
+      let filteredClinics = clinics.filter(function (item: Clinic) {
+        return item.id !== clinic.id;
+      });
+      localStorage.setItem(this.storageKey, JSON.stringify(filteredClinics));
+      observer.next(true);
+    });
+  }
 }
