@@ -6,8 +6,8 @@ import { TherapistInterface } from '../interfaces/models/therapist.interface';
 
 export class Clinic implements ClinicInterface {
     public id: string;
-    public title: string;
-    public address: string;
+    public title: string = null;
+    public address: string = null;
     public patients: PatientInterface[];
     public therapists: TherapistInterface[];
 

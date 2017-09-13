@@ -5,7 +5,7 @@ import { ClinicInterface } from '../interfaces/models/clinic.interface';
 import { PatientInterface } from '../interfaces/models/patient.interface';
 
 export class Therapist implements TherapistInterface {
-    public id: number;
+    public id: string;
     public position: string;
     public clinics: ClinicInterface[];
     public patients: PatientInterface[];

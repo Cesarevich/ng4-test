@@ -1,19 +1,23 @@
-import {Injectable, Inject} from '@angular/core';
-import {Clinic} from './../../models/clinic';
-import {Utils} from './../../services/utils';
+import { Injectable, Inject } from '@angular/core';
+import { Clinic } from './../../models/clinic';
+import { Utils } from './../../services/utils';
+import { ClinicRequestInterface as ClinicRequest } from './../../interfaces/request/clinic.request.interface';
 
 @Injectable()
 export class ClinicFactory {
 
-    constructor(
-        @Inject(Utils) private utils: Utils
-    ){
+    constructor(@Inject(Utils) private utils:Utils) {
 
     }
 
-    createClinic() : Clinic {
-        let clinic = new Clinic();
-        clinic.id = this.utils.uuid();
-        return clinic;
+    createClinic(parameters?:ClinicRequest):Clinic {
+      parameters = parameters || {title: '', address: ''};
+      let clinic = new Clinic();
+      clinic.id = this.utils.uuid();
+      clinic.title = parameters.title || null;
+      clinic.address = parameters.address || null;
+      clinic.patients = [];
+      clinic.therapists = [];
+      return clinic;
     }
 }

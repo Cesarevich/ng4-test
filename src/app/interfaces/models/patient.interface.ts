@@ -1,8 +1,8 @@
-import {ClinicInterface} from './clinic.interface';
-import {TherapistInterface} from './therapist.interface';
+import { ClinicInterface } from './clinic.interface';
+import { TherapistInterface } from './therapist.interface';
 
 export interface PatientInterface {
-    id: number;
+    id: string;
     name: string;
 
     addClinic(clinic: ClinicInterface) : void;
