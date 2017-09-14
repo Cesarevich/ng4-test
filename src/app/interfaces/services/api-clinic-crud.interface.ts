@@ -2,13 +2,13 @@ import { Observable } from 'rxjs/Rx';
 import { Clinic } from './../../models/clinic';
 
 export interface ApiClinicCrudInterface {
-  create(parameters: Object) : Observable<Clinic>;
+  create(parameters: Object): Observable<Clinic>;
 
-  list() : Observable<Clinic[]>;
+  list(): Observable<Clinic[]>;
 
-  remove(clinic: Clinic) : Observable<boolean>;
+  remove(clinic: Clinic): Observable<boolean>;
 
-  get(id: string) : Observable<Clinic>;
+  get(id: string): Observable<Clinic>;
 
   save(clinic: Clinic): Observable<boolean>;
 }

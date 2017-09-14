@@ -28,8 +28,7 @@ export class ClinicFormComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        //We user ngAfterViewInit lifecycle to prevent initial valueChage trigger
-        let subscription = this.clinicForm.valueChanges.subscribe(values => {
+        const subscription = this.clinicForm.valueChanges.subscribe(values => {
             this.isDirty.emit(true);
             subscription.unsubscribe();
         });

@@ -2,8 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { HomeComponent } from './components/home/home.component';
-import { NotFoundComponent } from './components/not-found/not-found.component'
-
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const appRoutes: Routes = [
   {

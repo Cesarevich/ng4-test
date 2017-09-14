@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 
 import { Clinic } from './../../../../models/clinic';
 import { ApiClinicCrudService } from './../../../../services/api-clinic-crud.service';
@@ -9,7 +9,6 @@ import { ApiClinicCrudInterface } from './../../../../interfaces/services/api-cl
     templateUrl: './clinic-list.component.html'
 })
 export class ClinicListComponent implements OnInit {
-
     clinics: Clinic[];
 
     constructor(

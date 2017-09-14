@@ -1,19 +1,21 @@
 import { Injectable, Inject } from '@angular/core';
 import { Patient } from './../../models/patient';
 import { Utils } from './../../services/utils';
+import { PatientRequestInterface } from './../../interfaces/request/patient.request.interface';
+
 
 @Injectable()
 export class PatientFactory {
-
     constructor(
         @Inject(Utils) private utils: Utils
-    ){
-    }
+    ) { }
 
-    createPatient() : Patient {
-        let patient = new Patient();
+    createPatient(parameters?: PatientRequestInterface): Patient {
+        parameters = parameters || {};
+        const patient = new Patient();
         patient.id = this.utils.uuid();
-        patient.clinics = [];
+        patient.name = parameters.name || null;
+        patient.clinics = parameters.clinics || [];
         patient.therapists = [];
         return patient;
     }

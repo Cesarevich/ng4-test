@@ -1,0 +1,23 @@
+import {Injectable} from '@angular/core';
+import {Observable, Observer} from 'rxjs/Rx';
+import {ApiPatientCrudInterface} from './../interfaces/services/api-patient-crud.interface';
+import {Patient} from './../models/patient';
+
+@Injectable()
+export class ApiPatientCrudService implements ApiPatientCrudInterface {
+
+  protected readonly storageKey: string = 'patients';
+
+  save(patient: Patient): Observable<boolean> {
+    return new Observable((observer: Observer<any>) => {
+      const patients = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+      // Use every to stop iterating as soon as we find item.
+      const filteredPatients = patients.filter(function (item: Patient) {
+        return item.id !== patient.id;
+      });
+      filteredPatients.push(patient);
+      localStorage.setItem(this.storageKey, JSON.stringify(filteredPatients));
+      observer.next(true);
+    });
+  }
+}

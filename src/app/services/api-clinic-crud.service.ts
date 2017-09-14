@@ -9,35 +9,31 @@ import { ClinicRequestInterface as ClinicRequest } from './../interfaces/request
 
 @Injectable()
 export class ApiClinicCrudService implements ApiClinicCrudInterface {
-
   protected readonly storageKey: string = 'clinics';
 
-  constructor(
-      private clinicFactory: ClinicFactory
-  ) {
-  }
+  constructor(private clinicFactory: ClinicFactory) { }
 
-  create(parameters: ClinicRequest) : Observable<Clinic> {
+  create(parameters: ClinicRequest): Observable<Clinic> {
       return new Observable((observer: Observer<any>) => {
-          let clinic = this.clinicFactory.createClinic();
+          const clinic = this.clinicFactory.createClinic();
           clinic.address = parameters.address;
           clinic.title = parameters.title;
-          let clinics = JSON.parse(localStorage.getItem(this.storageKey));
+          const clinics = JSON.parse(localStorage.getItem(this.storageKey));
           if (clinics === null) {
               localStorage.setItem(this.storageKey, JSON.stringify([clinic]));
           } else {
               clinics.push(clinic);
               localStorage.setItem(this.storageKey, JSON.stringify(clinics));
           }
-          observer.next(clinic)
+          observer.next(clinic);
       });
   }
 
-  //TODO: here is we may want to pass pagination parameters
+  // TODO: here is we may want to pass pagination parameters
   list(): Observable<Clinic[]> {
       return new Observable((observer: Observer<any>) => {
-          let clinics = JSON.parse(localStorage.getItem(this.storageKey)) || [];
-          let models = clinics.map((item: ClinicRequestInterface)  => {
+          const clinics = JSON.parse(localStorage.getItem(this.storageKey)) || [];
+          const models = clinics.map((item: ClinicRequestInterface)  => {
               return this.clinicFactory.createClinic(item);
           });
           observer.next(models);
@@ -46,8 +42,8 @@ export class ApiClinicCrudService implements ApiClinicCrudInterface {
 
   remove(clinic: Clinic): Observable<boolean> {
       return new Observable((observer: Observer<any>) => {
-          let clinics = JSON.parse(localStorage.getItem(this.storageKey));
-          let filteredClinics = clinics.filter(function (item: Clinic) {
+          const clinics = JSON.parse(localStorage.getItem(this.storageKey));
+          const filteredClinics = clinics.filter(function (item: Clinic) {
               return item.id !== clinic.id;
           });
           localStorage.setItem(this.storageKey, JSON.stringify(filteredClinics));
@@ -55,9 +51,9 @@ export class ApiClinicCrudService implements ApiClinicCrudInterface {
       });
   }
 
-  get(id: string) : Observable<Clinic> {
+  get(id: string): Observable<Clinic> {
       return new Observable((observer: Observer<any>) => {
-          let clinics = JSON.parse(localStorage.getItem(this.storageKey));
+          const clinics = JSON.parse(localStorage.getItem(this.storageKey));
           let clinic = null;
           // Use every to stop iterating as soon as we find item.
           clinics.every(function (item: Clinic) {
@@ -71,20 +67,19 @@ export class ApiClinicCrudService implements ApiClinicCrudInterface {
               observer.error({status: 404});
           }
 
-          let model = this.clinicFactory.createClinic(clinic);
+          const model = this.clinicFactory.createClinic(clinic);
           observer.next(model);
       });
   }
 
   save(clinic: Clinic): Observable<boolean> {
       return new Observable((observer: Observer<any>) => {
-          let clinics = JSON.parse(localStorage.getItem(this.storageKey));
-          let oldClinic = null;
+          const clinics = JSON.parse(localStorage.getItem(this.storageKey));
           // Use every to stop iterating as soon as we find item.
-          let filteredClinics = clinics.filter(function (item: Clinic) {
+          const filteredClinics = clinics.filter(function (item: Clinic) {
               return item.id !== clinic.id;
           });
-          console.log(clinic);
+
           filteredClinics.push(clinic);
           localStorage.setItem(this.storageKey, JSON.stringify(filteredClinics));
           observer.next(true);

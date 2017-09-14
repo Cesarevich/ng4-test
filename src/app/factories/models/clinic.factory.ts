@@ -5,19 +5,16 @@ import { ClinicRequestInterface as ClinicRequest } from './../../interfaces/requ
 
 @Injectable()
 export class ClinicFactory {
+    constructor(@Inject(Utils) private utils: Utils) {}
 
-    constructor(@Inject(Utils) private utils:Utils) {
-
-    }
-
-    createClinic(parameters?:ClinicRequest):Clinic {
-      parameters = parameters || {title: '', address: ''};
-      let clinic = new Clinic();
-      clinic.id = this.utils.uuid();
-      clinic.title = parameters.title || null;
-      clinic.address = parameters.address || null;
-      clinic.patients = [];
-      clinic.therapists = [];
-      return clinic;
+    createClinic(parameters?: ClinicRequest | any): Clinic {
+        parameters = parameters || {};
+        const clinic = new Clinic();
+        clinic.id = parameters.id || this.utils.uuid();
+        clinic.title = parameters.title || null;
+        clinic.address = parameters.address || null;
+        clinic.patients = parameters.patients || [];
+        clinic.therapists = parameters.therapists || [];
+        return clinic;
     }
 }

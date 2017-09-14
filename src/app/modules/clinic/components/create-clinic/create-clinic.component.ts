@@ -5,7 +5,7 @@ import { ApiClinicCrudService } from './../../../../services/api-clinic-crud.ser
 import { ApiClinicCrudInterface } from './../../../../interfaces/services/api-clinic-crud.interface';
 import { Clinic } from './../../../../models/clinic';
 import { ClinicRequestInterface as ClinicRequest } from './../../../../interfaces/request/clinic.request.interface';
-import { Observable }    from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { CanComponentDeactivate } from './../../../../guards/confirm-deactivate.guard';
 import { ClinicFactory } from './../../../../factories/models/clinic.factory';
 
@@ -15,7 +15,7 @@ import { ClinicFactory } from './../../../../factories/models/clinic.factory';
 })
 export class CreateClinicComponent implements OnInit, CanComponentDeactivate {
 
-    private formDirty: boolean = false;
+    private formDirty = false;
 
     public clinic: Clinic;
 
@@ -23,10 +23,9 @@ export class CreateClinicComponent implements OnInit, CanComponentDeactivate {
         @Inject(ApiClinicCrudService) private clinicApi: ApiClinicCrudInterface,
         @Inject(Router) private router: Router,
         @Inject(ClinicFactory) private clinicFactory: ClinicFactory
-    ) {
-    }
+    ) { }
 
-    onCreate(clinic: ClinicRequest) : void {
+    onCreate(clinic: ClinicRequest): void {
         this.clinicApi.create(clinic)
             .subscribe((newClinic: Clinic) => {
                 this.formDirty = false;
@@ -38,11 +37,11 @@ export class CreateClinicComponent implements OnInit, CanComponentDeactivate {
         this.formDirty = value;
     }
 
-    canDeactivate() : Observable<boolean> | Promise<boolean> | boolean {
+    canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
         return this.formDirty ? window.confirm('Do you really want to cancel your changes?') : true;
     }
 
-    ngOnInit() : void {
+    ngOnInit(): void {
         this.clinic = this.clinicFactory.createClinic();
     }
 }

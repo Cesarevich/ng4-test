@@ -1,8 +1,8 @@
 import { Clinic } from './clinic';
 import { Patient } from './patient';
-import { TherapistInterface } from '../interfaces/models/therapist.interface';
-import { ClinicInterface } from '../interfaces/models/clinic.interface';
-import { PatientInterface } from '../interfaces/models/patient.interface';
+import { TherapistInterface } from './../interfaces/models/therapist.interface';
+import { PatientInterface } from './../interfaces/models/patient.interface';
+import { ClinicInterface } from './../interfaces/models/clinic.interface';
 
 export class Therapist implements TherapistInterface {
     public id: string;
@@ -10,17 +10,20 @@ export class Therapist implements TherapistInterface {
     public clinics: ClinicInterface[];
     public patients: PatientInterface[];
 
-    public addClinic(clinic: ClinicInterface) : void {
-        if (this.clinics.indexOf(clinic) === -1) {
-            this.clinics.push(clinic);
-            clinic.addTherapist(this);
-        }
+    public addClinic(clinic: Clinic): void {
+        const profile = clinic.getProfile();
+        this.clinics.push(profile);
     }
 
-    public addPatient(patient: PatientInterface) : void {
-        if (this.patients.indexOf(patient) === -1) {
-            this.patients.push(patient);
-            patient.addTherapist(this);
-        }
+    public addPatient(patient: Patient): void {
+        const profile = patient.getProfile();
+        this.patients.push(profile);
+    }
+
+    public getProfile(): TherapistInterface {
+        return {
+            id: this.id,
+            position: this.position
+        };
     }
 }
